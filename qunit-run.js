@@ -1,6 +1,6 @@
 ﻿//based on: https://github.com/ElemarJR/QUnit-run
 
-var qunit = require("./lib/qunit/qunit").QUnit,
+var qunit = require("./qunit").QUnit,
 	fs = require("fs"),
 	exitcode = 0;
 
