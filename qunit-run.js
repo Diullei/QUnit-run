@@ -1,4 +1,6 @@
-﻿var qunit = require("./qunit").QUnit,
+﻿//based on: https://github.com/ElemarJR/QUnit-run
+
+var qunit = require("./lib/qunit/qunit").QUnit,
 	fs = require("fs"),
 	exitcode = 0;
 
@@ -34,26 +36,26 @@ var stopWatch = {
 	qunit.init();
 
 	qunit.moduleStart = function (data) {
-		print_highlight(data.name);
+		print_highlight("module: " + data.name);
 	};
 
 	qunit.moduleDone = function (data) {
 		print("\n" +
-			data.failed + " failed. " + 
-			data.passed + " passed. " + 
-			data.total + " total."
+			"\33[31m\33[1m" + data.failed + "\33[0m failed. " + 
+			"\33[32m\33[1m" + data.passed +"\33[0m passed. " + 
+			"\33[1m" + data.total + "\33[0m total."
 			);
 	};
 
 	qunit.testStart = function (data) {
-		print("\n  " +  data.name);
+		print_highlight("\n  test: " +  data.name);
 	};
 
 	qunit.testDone = function (data) {
 		print("\n  " + 
-			data.failed + " failed. " + 
-			data.passed + " passed. " + 
-			data.total + " total."
+			"\33[31m\33[1m" + data.failed + "\33[0m failed. " + 
+			"\33[32m\33[1m" + data.passed +"\33[0m passed. " + 
+			"\33[1m" + data.total + "\33[0m total."
 			);
 	};
 
@@ -82,16 +84,13 @@ var stopWatch = {
 	};
 } ());
 
-if (process.argv.length < 4) {
-	print_fail("Use: node qunit-run <script> <test>");
+if (process.argv.length < 3) {
+	print_fail("Use: node qunit-run <test-script>");
 	exitcode = 2;
 } else  {
-	eval(fs.readFileSync(process.argv[2], "utf-8"));
-	eval("with (qunit) {" + fs.readFileSync(process.argv[3], "utf-8") + "}");
+	eval("with (qunit) {" + fs.readFileSync(process.argv[2], "utf-8") + "}");
 	qunit.begin();
 	qunit.start();
 }
 
 process.exit(exitcode);
-
-
