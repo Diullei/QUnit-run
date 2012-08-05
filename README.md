@@ -15,4 +15,4 @@ test('test example', function(){
 
 ...and have this output:
 
-![Valid XHTML](output.png)
+![Valid XHTML](https://raw.github.com/Diullei/QUnit-run/master/output.png)
