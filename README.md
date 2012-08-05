@@ -7,7 +7,6 @@ Run your QUnit tests "out-of-browser" using node.js.
 
 ```javascript
 module('test module');
-
 test('test example', function(){
 	ok(true, 'test is ok');
 });
